@@ -9,3 +9,6 @@
     echo 'Func form str'.$actionName . '<br/>';
 
     include_once '../controllers/'.$controllerName.'Controller.php';
+
+    $function = $actionName . "Action";
+    echo 'polnoe nazvanie func' .$function."<br/>";
