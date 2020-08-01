@@ -3,7 +3,7 @@
     <h1> Товары категории {$rsCategory['name']}</h1>
     {foreach $rsProducts as $item name=products}
         <div style="float: left; padding: 0px 30px 40px 0px;">
-            <a href="/>product/{$item['id']}/">
+            <a href="/product/{$item['id']}/">
                 <img src="/images/products/{$item['image']}" width="100" height="100" />
             </a><br/>
             <a href="/product/{$item['id']}/">{$item['name']}</a>

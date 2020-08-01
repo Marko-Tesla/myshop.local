@@ -4,7 +4,7 @@
  */
 
 /**
- * Поулчаем последние добавленные товары
+ * Получаем последние добавленные товары
  *
  * @param integer $limit Лимит товаров
  * @return array Массив товаров
@@ -29,4 +29,20 @@ function getProductsByCat($itemId) {
     $rs = mysql_query($sql);
 
     return createSmartyRsArray($rs);
+}
+
+/**
+ * Получить данные продукта по ID
+ *
+ * @param integet $itemId ID продукта
+ * @return array массив данных продукта
+ */
+
+function getProductById($itemId) {
+    $itemId = intval($itemId);
+    $sql = "SELECT *
+            FROM products
+            WHERE id = '{$itemId}'";
+    $rs = mysql_query($sql);
+    return mysql_fetch_assoc($rs);
 }
