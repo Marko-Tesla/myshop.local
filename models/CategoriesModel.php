@@ -7,15 +7,17 @@
 /**
  * Получить дочерние категории для категории $catId
  * @param $catid
+ * return arrat массив дочерних категорий
  */
-
-function getChildrenFromCat($catId) {
-$sql = "SELECT * FROM categories 
+function getChildrenForCat($catId) {
+    $sql = "SELECT * FROM categories 
         WHERE parent_id = '{$catId}'";
-$rs = mysql_query($sql);
+    $rs = mysql_query($sql);
 
-return createSmartyRsArray($rs);
+    return createSmartyRsArray($rs);
 }
+
+
 
 /**
  * Получить главные категории с привязками дочерних
@@ -29,7 +31,7 @@ function getAllMainCatsWithChildren() {
     $smartyRs = array();
 
     while ($row = mysql_fetch_assoc($rs)){
-        $rsChildren = getChildrenFromCat($row['id']);
+        $rsChildren = getChildrenForCat($row['id']);
         if($rsChildren) {
             $row['children'] = $rsChildren;
         }
