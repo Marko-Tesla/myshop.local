@@ -5,6 +5,7 @@
 {if !$rsProducts}
     В корзине пусто.
     {else}
+    <form action="/cart/order/" method="POST">
     <h2>Данные заказа</h2>
     <table>
         <tr>
@@ -61,4 +62,6 @@
             </tr>
         {/foreach}
     </table>
+    <input type="submit" value="Оформить заказ"/>
+    </form>
 {/if}
