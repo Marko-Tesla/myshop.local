@@ -57,22 +57,22 @@ function checkRegisterParams($email, $pwd1, $pwd2){
 
     if(!$email){
         $res['success'] = false;
-        $res['messsage'] = 'Введите email';
+        $res['message'] = 'Введите email';
     }
 
     if(!$pwd1){
         $res['success'] = false;
-        $res['messsage'] = 'Введите пароль';
+        $res['message'] = 'Введите пароль';
     }
 
     if(!$pwd2){
         $res['success'] = false;
-        $res['messsage'] = 'Введите повтор пароля';
+        $res['message'] = 'Введите повтор пароля';
     }
 
     if($pwd1 != $pwd2){
         $res['success'] = false;
-        $res['messsage'] = 'Пароли не совпадают';
+        $res['message'] = 'Пароли не совпадают';
     }
     return $res;
 
@@ -90,5 +90,31 @@ function checkUserEmail ($email) {
     $rs = mysql_query($sql);
     $rs = createSmartyRsArray($rs);
 
+    return $rs;
+}
+
+/**
+ *  Авторизация пользователя
+ *
+ * @param string $email почта(логин)
+ * @param string $pwd пароль
+ * @return array массив данных пользователя
+ */
+
+function loginUser ($email, $pwd){
+    $email = htmlspecialchars(mysql_real_escape_string($email));
+    $pwd = md5($pwd);
+
+    $sql = "SELECT * FROM users
+            WHERE (`email` = '{$email}' and `pwd` = '{$pwd}')
+            LIMIT 1";
+
+    $rs = mysql_query($sql);
+    $rs= createSmartyRsArray($rs);
+    if(isset($rs[0])){
+        $rs['success'] = 1;
+    } else {
+        $rs['success'] = 0;
+    }
     return $rs;
 }

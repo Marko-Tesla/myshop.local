@@ -91,13 +91,13 @@ function registerNewUser(){
                 alert('Регистрация прошла успешно');
                 //>блок в левом столбце
                 $('#registerBox').hide();
-                //$('#userLink').attr('href', '/user');
-                //$('#userLink').html(data['userName']);
-                //$('#userBox').show();
+                $('#userLink').attr('href', '/user');
+                $('#userLink').html(data['userName']);
+                $('#userBox').show();
                 //<
                 //> страница заказа
-                //$('#loginBox').hide();
-                //$('#btnSaveOrder').show();
+                $('#loginBox').hide();
+                $('#btnSaveOrder').show();
                 //<
             } else {
                 alert(data['message']);
@@ -106,3 +106,64 @@ function registerNewUser(){
     });
 }
 
+/**
+ * Разлогинивание
+ * @param itemId
+ */
+
+function logout() {
+    console.log('Logout');
+    $.ajax({
+        type: 'POST',
+        url: '/user/logout/',
+        success: function() {
+            console.log('User logged out');
+            $('#registerBox').show();
+            $('#userBox').hide();
+        }
+    });
+}
+
+/**
+ *Авторизация пользователя
+ *
+ */
+function login() {
+    let email = $('#loginEmail').val();
+    let pwd = $('#loginPwd').val();
+
+    let postData = "email=" + email + "&pwd=" + pwd;
+
+    $.ajax({
+        type: 'POST',
+        url: "/user/login/",
+        data: postData,
+        dataType: 'json',
+        success: function (data) {
+            console.log(data);
+            if(data['success']){
+                $('#registerBox').hide();
+                $('#loginBox').hide();
+
+                $('#userLink').attr('href', '/user/');
+                $('#userLink').html(data['displayName']);
+                $('#userBox').show();
+            } else {
+                alert(data['message']);
+            }
+        }
+    });
+}
+
+/**
+ * Показать/спрятать при нажатии кнопки регистрация
+ *
+ */
+
+function showRegisterBox(){
+    if($('#registerBoxHidden').css('display') != 'block' ) {
+        $('#registerBoxHidden').show();
+    } else{
+        $('#registerBoxHidden').hide();
+    }
+}
